@@ -210,6 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
               <button class="action-btn copy-btn"><i class="fa-solid fa-copy"></i> Copy JSON</button>
               <button class="action-btn export-md-btn"><i class="fa-solid fa-file-markdown"></i> Download .MD</button>
               <button class="action-btn export-csv-btn"><i class="fa-solid fa-file-csv"></i> Download .CSV</button>
+              <button class="action-btn export-slack-btn"><i class="fa-brands fa-slack"></i> Copy Slack Blocks</button>
+              <button class="action-btn export-html-btn"><i class="fa-solid fa-envelope"></i> Download Email HTML</button>
             </div>
           </div>
 
@@ -238,7 +240,49 @@ document.addEventListener('DOMContentLoaded', () => {
       downloadCSV(suiteData);
     });
 
+    cardEl.querySelector('.export-slack-btn').addEventListener('click', () => {
+      const slackPayload = {
+        blocks: [
+          { type: "header", text: { type: "plain_text", text: `🧪 QA Test Suite: ${suiteData.feature_name}` } },
+          { type: "section", text: { type: "mrkdwn", text: `*Summary:* ${suiteData.summary}\n*Total Test Cases:* \`${suiteData.test_cases.length}\`` } },
+          { type: "divider" },
+          ...suiteData.test_cases.map(tc => ({
+            type: "section",
+            text: { type: "mrkdwn", text: `*${tc.id}*: *${tc.title}* (${tc.priority})\n*Expected:* ${tc.expected_result}` }
+          }))
+        ]
+      };
+      navigator.clipboard.writeText(JSON.stringify(slackPayload, null, 2));
+      alert('Slack Block Kit JSON copied to clipboard!');
+    });
+
+    cardEl.querySelector('.export-html-btn').addEventListener('click', () => {
+      downloadEmailHTML(suiteData);
+    });
+
     scrollToBottom();
+  }
+
+  function downloadEmailHTML(suiteData) {
+    const rows = suiteData.test_cases.map(tc => `
+      <tr style="border-bottom: 1px solid #e5e7eb;">
+        <td style="padding: 10px; font-weight: bold; color: #4f46e5;">${tc.id}</td>
+        <td style="padding: 10px; font-weight: 600;">${tc.title}</td>
+        <td style="padding: 10px;"><span style="background: #e0e7ff; color: #3730a3; padding: 3px 8px; border-radius: 4px; font-size: 11px;">${tc.priority}</span></td>
+        <td style="padding: 10px; font-size: 13px;">${(tc.steps || []).join('<br>')}</td>
+        <td style="padding: 10px; font-size: 13px; color: #059669; font-weight: 500;">${tc.expected_result}</td>
+      </tr>
+    `).join('');
+
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${suiteData.feature_name}</title></head><body style="font-family: Arial, sans-serif; padding: 20px; background: #f9fafb;"><div style="max-width: 800px; margin: 0 auto; background: #ffffff; padding: 24px; border-radius: 8px;"><h2 style="color: #111827;">🧪 QA Test Suite: ${suiteData.feature_name}</h2><p style="color: #6b7280;">${suiteData.summary}</p><hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 20px 0;"><table style="width: 100%; border-collapse: collapse; text-align: left;"><thead><tr style="background: #f3f4f6; font-size: 12px;"><th style="padding: 10px;">ID</th><th style="padding: 10px;">Title</th><th style="padding: 10px;">Priority</th><th style="padding: 10px;">Steps</th><th style="padding: 10px;">Expected Result</th></tr></thead><tbody>${rows}</tbody></table></div></body></html>`;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${(suiteData.feature_name || 'test_cases').toLowerCase().replace(/[^a-z0-9]/g, '_')}_email.html`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   function downloadMarkdown(suiteData) {
