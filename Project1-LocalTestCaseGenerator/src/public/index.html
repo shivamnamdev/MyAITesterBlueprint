@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QA Pilot - Local LLM Test Case Generator</title>
+
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-icon">
+          <i class="fa-solid fa-microchip-ai"></i>
+        </div>
+        <div>
+          <h1 class="logo-title">QA Pilot</h1>
+          <p class="logo-subtitle">Local LLM Test Case Generator (Ollama + B.L.A.S.T.)</p>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <div class="status-badge" id="ollama-status">
+          <span class="status-dot offline"></span>
+          <span class="status-text">Checking Ollama...</span>
+        </div>
+        <div class="model-badge">
+          <i class="fa-solid fa-cube"></i>
+          <span id="selected-model-name">llama3.2</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Chat Workspace -->
+    <main class="chat-workspace">
+      <!-- Chat Feed -->
+      <div class="chat-feed" id="chat-feed">
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+          <div class="welcome-icon">
+            <i class="fa-solid fa-vial-circle-check"></i>
+          </div>
+          <h2>Welcome to QA Pilot</h2>
+          <p>Describe your software feature or requirement below, and your local Ollama LLM will generate deterministic, structured QA test cases instantly.</p>
+
+          <div class="quick-prompts">
+            <span class="quick-title"><i class="fa-solid fa-bolt"></i> Try a sample scenario:</span>
+            <div class="chip-group">
+              <button class="prompt-chip" data-prompt="User Authentication with Email, Password, Google OAuth 2.0, and Remember Me checkbox.">
+                🔐 User Auth with OAuth
+              </button>
+              <button class="prompt-chip" data-prompt="E-commerce Checkout process: Promo code application, Credit Card payment, address validation, and stock reduction.">
+                🛒 Shopping Cart Checkout
+              </button>
+              <button class="prompt-chip" data-prompt="User Password Reset flow with email OTP verification, token expiry (15 mins), and password strength rules.">
+                🔑 Password Reset with OTP
+              </button>
+              <button class="prompt-chip" data-prompt="File Upload widget supporting PDF and PNG images under 10MB, with drag-and-drop and progress bar.">
+                📁 Drag-and-Drop File Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls & Input Area -->
+      <div class="input-panel">
+        <div class="panel-toolbar">
+          <div class="tool-item">
+            <label for="test-type-select"><i class="fa-solid fa-filter"></i> Scope Focus:</label>
+            <select id="test-type-select">
+              <option value="All">All Categories (Balanced)</option>
+              <option value="Functional">Functional (Happy Path)</option>
+              <option value="Negative">Negative & Error Handling</option>
+              <option value="Security">Security & Access Control</option>
+              <option value="UI/UX">UI/UX & Layout</option>
+              <option value="Edge Cases">Edge Cases & Boundaries</option>
+            </select>
+          </div>
+
+          <div class="tool-item">
+            <label for="model-select"><i class="fa-solid fa-brain"></i> Model:</label>
+            <select id="model-select">
+              <option value="llama3.2">llama3.2 (Default)</option>
+            </select>
+          </div>
+        </div>
+
+        <form class="input-form" id="chat-form">
+          <textarea 
+            id="user-input" 
+            placeholder="Describe your feature, user story, API endpoint, or acceptance criteria here..." 
+            rows="3" 
+            required></textarea>
+          
+          <button type="submit" id="send-btn" class="send-button">
+            <span>Generate Test Cases</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
