@@ -1,0 +1,14 @@
+{
+  "name": "playwright-converted-suite",
+  "version": "1.0.0",
+  "description": "Playwright TypeScript test suite converted from Selenium Java via Ollama LLM",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "typescript": "^5.0.0"
+  }
+}
