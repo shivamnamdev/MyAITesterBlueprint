@@ -81,6 +81,33 @@ mvn clean test
 
 ---
 
+## 📌 Project 5: Chat-Driven Bug Report Generator (`Project5-CaludeCodeBugReport`)
+
+### Overview
+A Python Flask app with a chat UI. Describe a bug in plain language and a local LLM (Ollama) builds a structured, styled bug report live (summary, steps, expected/actual, severity, etc.). Export via Copy Markdown, Download HTML, or Print/PDF. Falls back to a simple rule-based extractor if Ollama is not running.
+
+### Prerequisites
+* **Python**: v3.9+
+* **Ollama** (optional, recommended): running locally with `llama3.2` (`ollama pull llama3.2`). Override with `OLLAMA_MODEL` / `OLLAMA_URL`.
+
+### Execution Steps
+```bash
+# 1. Navigate to Project 5 directory
+cd Project5-CaludeCodeBugReport
+
+# 2. Create virtualenv and install dependencies (first time only)
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+
+# 3. (Optional) start Ollama in another terminal
+ollama serve
+
+# 4. Start the app
+.venv/bin/python app.py
+```
+* **Access URL**: `http://localhost:5055` (change with `PORT=xxxx`)
+
+---
+
 ## ⚙️ Maintainer Instructions for AI & Contributors
 
 > [!IMPORTANT]
