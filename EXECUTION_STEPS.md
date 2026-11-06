@@ -108,6 +108,59 @@ ollama serve
 
 ---
 
+## 📌 Project 6: Job Tracking Board Assistant & AI Matcher (`Project6-ResumeFix_LinkedinJob`)
+
+### Overview
+A B.L.A.S.T.-architected local Kanban board assistant to manage your end-to-end job hunting journey. Tracks daily job search & application quotas, features smart one-click auto-fill from unstructured text or live JD URLs (online scraping), provides local SQLite ACID persistence, and evaluates resume-to-JD fit with a 1-10 rating, prospect potential bar, matching strengths, gaps, and tailoring tips via local Ollama (with instant heuristic fallback).
+
+### Prerequisites
+* **Node.js**: v18.0+ (Node v26 recommended)
+* **Ollama** (optional, recommended): running locally with `llama3.2` (`ollama serve`)
+
+### Execution Steps
+```bash
+# 1. Navigate to Project 6 directory
+cd Project6-ResumeFix_LinkedinJob
+
+# 2. Launch using one-click startup script (handles dependencies & build automatically)
+chmod +x start.sh
+./start.sh
+
+# Or start directly with npm:
+npm start
+
+# For development mode with hot reload:
+npm run dev
+```
+* **Access URL**: `http://localhost:5070` (change with `PORT=xxxx`)
+
+---
+
+## 📌 Individual Project: Ultimate Prompt Generator (`Individual-Projects/Ultimate-Prompt-Generator`)
+
+### Overview
+A B.L.A.S.T.-architected Web application and deterministic compiler based on the 10 Prompt Engineering Principles and 17-Section Master Structure. Converts raw topics, domain goals, tech stacks, and constraints into production-ready, copy-ready Ultimate Master Prompts for ChatGPT, Claude, Gemini, or local models. Features one-click domain presets, section toggles, live markdown rendering, copy-to-clipboard, export to `.md` / `.txt`, and optional local Ollama integration.
+
+### Prerequisites
+* **Python**: v3.9+
+* **Ollama** (optional): running locally with `llama3.2` (`ollama serve`)
+
+### Execution Steps
+```bash
+# 1. Navigate to Ultimate Prompt Generator directory
+cd Individual-Projects/Ultimate-Prompt-Generator
+
+# 2. Launch using startup script (handles virtual environment automatically)
+chmod +x start.sh
+./start.sh
+
+# Or start directly with Python:
+.venv/bin/python app.py
+```
+* **Access URL**: `http://localhost:5056` (change with `PORT=xxxx`)
+
+---
+
 ## ⚙️ Maintainer Instructions for AI & Contributors
 
 > [!IMPORTANT]

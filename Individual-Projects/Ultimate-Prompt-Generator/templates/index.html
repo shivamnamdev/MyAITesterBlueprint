@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Prompt Generator | B.L.A.S.T.</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Marked.js for Live Markdown Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            slate: {
+              850: '#151f32',
+              950: '#070c14',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    /* Rendered Markdown Styling */
+    .prose-custom h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #38bdf8;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .prose-custom h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #4ade80;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .prose-custom h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-top: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .prose-custom p, .prose-custom li {
+      color: #94a3b8;
+      line-height: 1.6;
+      font-size: 0.925rem;
+    }
+    .prose-custom ul {
+      list-style-type: disc;
+      padding-left: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .prose-custom ol {
+      list-style-type: decimal;
+      padding-left: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .prose-custom blockquote {
+      border-left: 3px solid #22c55e;
+      padding-left: 0.75rem;
+      font-style: italic;
+      color: #64748b;
+      margin: 0.75rem 0;
+    }
+    .prose-custom code {
+      background: #1e293b;
+      color: #38bdf8;
+      padding: 0.15rem 0.35rem;
+      border-radius: 0.25rem;
+      font-size: 0.85rem;
+      font-family: monospace;
+    }
+    .prose-custom pre {
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .prose-custom pre code {
+      background: transparent;
+      padding: 0;
+      color: #f1f5f9;
+    }
+    .prose-custom hr {
+      border-color: #1e293b;
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col antialiased selection:bg-brand-500 selection:text-slate-950">
+
+  <!-- Top Navigation Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center shadow-lg shadow-brand-500/20 font-black text-slate-950 text-xl">
+          ⚡
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+            Ultimate Prompt Generator
+            <span class="text-xs px-2 py-0.5 rounded-full bg-brand-900/60 border border-brand-500/30 text-brand-400 font-mono">B.L.A.S.T.</span>
+          </h1>
+          <p class="text-xs text-slate-400">17-Section Multidisciplinary Master Prompt Engine</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <!-- Health Status Badge -->
+        <div id="healthBadge" class="flex items-center gap-2 text-xs px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse" id="healthDot"></span>
+          <span id="healthText">Checking Engine...</span>
+        </div>
+        <a href="https://github.com" target="_blank" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+          Blueprint
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- LEFT COLUMN: Control Panel & Configuration (5 cols on lg) -->
+    <div class="lg:col-span-5 space-y-5">
+      
+      <!-- Presets Selector -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
+        <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">⚡ Quick Domain Presets</label>
+        <div class="flex flex-wrap gap-2" id="presetButtons">
+          <button onclick="applyPreset('qa_automation')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-brand-900/50 hover:text-brand-300 hover:border-brand-500/40 border border-slate-700 transition">
+            🧪 QA Automation
+          </button>
+          <button onclick="applyPreset('fullstack_ai')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-brand-900/50 hover:text-brand-300 hover:border-brand-500/40 border border-slate-700 transition">
+            🤖 Full-Stack AI
+          </button>
+          <button onclick="applyPreset('devops_cloud')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-brand-900/50 hover:text-brand-300 hover:border-brand-500/40 border border-slate-700 transition">
+            ☁️ Cloud DevOps
+          </button>
+          <button onclick="applyPreset('data_engineer')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-brand-900/50 hover:text-brand-300 hover:border-brand-500/40 border border-slate-700 transition">
+            📊 Data Engineer
+          </button>
+          <button onclick="applyPreset('product_manager')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-brand-900/50 hover:text-brand-300 hover:border-brand-500/40 border border-slate-700 transition">
+            🎯 AI Product Mgr
+          </button>
+        </div>
+      </div>
+
+      <!-- Core Configuration Form -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+        
+        <!-- Topic / North Star -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">
+            North Star Goal / Domain Project <span class="text-brand-400">*</span>
+          </label>
+          <textarea id="topicInput" rows="2" placeholder="e.g. Enterprise Web & API Test Automation Framework using Playwright TypeScript and CI/CD" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition resize-none"></textarea>
+        </div>
+
+        <!-- Target Role & Category -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Desired AI Expert Role</label>
+            <input type="text" id="roleInput" placeholder="Principal QA Automation Architect" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Category</label>
+            <select id="categorySelect" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-brand-500 transition">
+              <option value="QA Automation">QA Automation</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="AI & ML">AI & Machine Learning</option>
+              <option value="Cloud & DevOps">Cloud & DevOps</option>
+              <option value="Data Engineering">Data Engineering</option>
+              <option value="Product Management">Product Management</option>
+              <option value="General">General / Custom</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Experience Level & Time Commitment -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">My Starting Level</label>
+            <select id="experienceSelect" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-brand-500 transition">
+              <option value="Beginner">Beginner (Foundations & Syntax)</option>
+              <option value="Intermediate">Intermediate (Practicing Concepts)</option>
+              <option value="Advanced" selected>Advanced (Production Architecture)</option>
+              <option value="Staff / Principal">Staff / Principal (Enterprise Scale)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Time Bandwidth</label>
+            <input type="text" id="timeInput" value="10-15 hours/week" placeholder="e.g. 10 hours/week" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition">
+          </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Tech Stack & Ecosystem (Comma separated)</label>
+          <input type="text" id="techStackInput" placeholder="Playwright, TypeScript, Node.js, Docker, GitHub Actions" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition">
+        </div>
+
+        <!-- Constraints & Do-Not Rules -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Constraints, Policies & "Do-Not" Rules</label>
+          <textarea id="constraintsInput" rows="2" placeholder="Strict Page Object Model (POM), zero hardcoded sleep waits, deterministic executions..." class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition resize-none"></textarea>
+        </div>
+
+        <!-- Target Model & Engine -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Target Execution AI</label>
+            <select id="targetModelSelect" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-brand-500 transition">
+              <option value="ChatGPT (GPT-4o)" selected>ChatGPT (GPT-4o)</option>
+              <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
+              <option value="Google Gemini">Google Gemini</option>
+              <option value="Local Ollama">Local Ollama</option>
+              <option value="General LLM">General LLM</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Generation Engine</label>
+            <select id="engineSelect" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-brand-500 transition">
+              <option value="deterministic" selected>Deterministic Compiler (Instant)</option>
+              <option value="ollama">Local Ollama API</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Section Selector Accordion -->
+        <div class="border border-slate-800 rounded-xl overflow-hidden bg-slate-950/60">
+          <button type="button" onclick="toggleSectionAccordion()" class="w-full px-4 py-2.5 flex items-center justify-between text-xs font-medium text-slate-300 hover:text-white transition">
+            <span class="flex items-center gap-2">
+              <span>📋 Customize 17 Sections</span>
+              <span id="activeSectionBadge" class="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-brand-400 font-mono">17 / 17</span>
+            </span>
+            <svg id="accordionArrow" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          
+          <div id="sectionChecklistContainer" class="hidden p-4 border-t border-slate-800 space-y-2 max-h-60 overflow-y-auto">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800/80 mb-2">
+              <span class="text-[11px] text-slate-400">Select structural components:</span>
+              <div class="flex gap-2">
+                <button type="button" onclick="setAllSections(true)" class="text-[10px] text-brand-400 hover:underline">Select All</button>
+                <button type="button" onclick="setEssentialSections()" class="text-[10px] text-slate-400 hover:underline">Core Only</button>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-1.5 text-xs text-slate-300" id="sectionCheckboxList">
+              {% for key, label in sections %}
+              <label class="flex items-center gap-2 cursor-pointer hover:text-white">
+                <input type="checkbox" name="activeSection" value="{{ key }}" checked onchange="updateSectionCountBadge()" class="rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-0">
+                <span>{{ label }}</span>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate Action Button -->
+        <button id="generateBtn" onclick="generatePrompt()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-600 to-emerald-500 hover:from-brand-500 hover:to-emerald-400 text-slate-950 font-bold text-sm tracking-wide shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2 transition transform active:scale-[0.99]">
+          <span id="btnIcon">🚀</span>
+          <span id="btnText">Generate Ultimate Master Prompt</span>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: Output Workbench (7 cols on lg) -->
+    <div class="lg:col-span-7 flex flex-col space-y-4">
+
+      <!-- Clarification Suggestion Box (Dynamic) -->
+      <div id="clarificationBox" class="hidden bg-amber-950/40 border border-amber-500/40 rounded-2xl p-4 flex items-start gap-3">
+        <div class="text-amber-400 text-lg">💡</div>
+        <div class="flex-1 text-xs">
+          <div class="font-semibold text-amber-300 mb-0.5">Prompt Engineering Clarification Note:</div>
+          <div id="clarificationText" class="text-amber-200/90 leading-relaxed"></div>
+        </div>
+        <button onclick="dismissClarification()" class="text-slate-400 hover:text-white text-xs">✕</button>
+      </div>
+
+      <!-- Output Display Card -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl flex-1 flex flex-col shadow-sm overflow-hidden min-h-[500px]">
+        
+        <!-- Header Bar: Tabs & Action Buttons -->
+        <div class="border-b border-slate-800 px-4 py-3 bg-slate-900/90 flex flex-wrap items-center justify-between gap-3">
+          
+          <!-- View Tabs -->
+          <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+            <button id="tabRendered" onclick="switchTab('rendered')" class="px-3 py-1.5 rounded-lg bg-brand-600 text-slate-950 font-semibold transition">
+              Preview
+            </button>
+            <button id="tabRaw" onclick="switchTab('raw')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">
+              Raw Markdown
+            </button>
+          </div>
+
+          <!-- Metadata Badges -->
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 font-mono" id="statsContainer">
+            <span id="statEngine" class="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-brand-400">Deterministic</span>
+            <span id="statWords">0 words</span>
+            <span id="statSections">0/17 sections</span>
+          </div>
+
+          <!-- Export Actions -->
+          <div class="flex items-center gap-2">
+            <button id="copyBtn" onclick="copyPromptToClipboard()" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1.5 transition">
+              <span id="copyIcon">📋</span>
+              <span id="copyText">Copy Prompt</span>
+            </button>
+            <button onclick="downloadPrompt('md')" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="Download as .md">
+              📥 .md
+            </button>
+            <button onclick="downloadPrompt('txt')" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="Download as .txt">
+              📄 .txt
+            </button>
+          </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="p-6 flex-1 overflow-y-auto">
+          
+          <!-- Rendered Markdown View -->
+          <div id="renderedView" class="prose-custom max-w-none">
+            <div class="h-full flex flex-col items-center justify-center text-center py-20 text-slate-500">
+              <div class="w-16 h-16 rounded-2xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-2xl mb-3">
+                🧠
+              </div>
+              <p class="text-sm font-medium text-slate-400">Ready to engineer your Master Prompt</p>
+              <p class="text-xs text-slate-600 max-w-sm mt-1">Select a quick preset on the left or enter your project details, then click Generate.</p>
+            </div>
+          </div>
+
+          <!-- Raw Code View -->
+          <div id="rawView" class="hidden">
+            <textarea id="rawTextarea" readonly class="w-full h-[600px] bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono text-slate-300 focus:outline-none resize-none leading-relaxed"></textarea>
+          </div>
+
+        </div>
+
+        <!-- Footer / Instructions Card -->
+        <div class="border-t border-slate-800/80 bg-slate-950/40 px-5 py-3 text-xs text-slate-500 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-brand-500 font-bold">Tip:</span>
+            <span>Paste this prompt into turn 1 of a new dedicated AI chat to establish your permanent expert advisor.</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Client-Side JavaScript Logic -->
+  <script>
+    let currentPromptData = null;
+    let presetsData = {};
+
+    // Load presets from server
+    async function loadPresets() {
+      try {
+        const res = await fetch('/api/presets');
+        presetsData = await res.json();
+      } catch (e) {
+        console.error("Failed to load presets:", e);
+      }
+    }
+
+    // Health check on startup
+    async function checkHealth() {
+      const badge = document.getElementById('healthBadge');
+      const dot = document.getElementById('healthDot');
+      const text = document.getElementById('healthText');
+      try {
+        const res = await fetch('/api/health');
+        const data = await res.json();
+        if (data.status === 'healthy') {
+          dot.className = "w-2 h-2 rounded-full bg-emerald-400";
+          if (data.ollama && data.ollama.online) {
+            text.textContent = `Ollama Online (${data.ollama.models.length} models)`;
+          } else {
+            text.textContent = "Compiler Active (Offline Ready)";
+          }
+        }
+      } catch (e) {
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        text.textContent = "Compiler Active";
+      }
+    }
+
+    function applyPreset(key) {
+      if (!presetsData[key]) return;
+      const p = presetsData[key];
+      document.getElementById('topicInput').value = p.topic || "";
+      document.getElementById('roleInput').value = p.targetRole || "";
+      document.getElementById('categorySelect').value = p.category || "General";
+      document.getElementById('experienceSelect').value = p.experienceLevel || "Intermediate";
+      document.getElementById('timeInput').value = p.timeCommitment || "";
+      document.getElementById('techStackInput').value = (p.techStack || []).join(", ");
+      document.getElementById('constraintsInput').value = p.constraints || "";
+      document.getElementById('targetModelSelect').value = p.targetModel || "ChatGPT (GPT-4o)";
+      
+      // Auto-trigger generation for instant feedback
+      generatePrompt();
+    }
+
+    function toggleSectionAccordion() {
+      const container = document.getElementById('sectionChecklistContainer');
+      const arrow = document.getElementById('accordionArrow');
+      const isHidden = container.classList.contains('hidden');
+      if (isHidden) {
+        container.classList.remove('hidden');
+        arrow.classList.add('rotate-180');
+      } else {
+        container.classList.add('hidden');
+        arrow.classList.remove('rotate-180');
+      }
+    }
+
+    function setAllSections(checked) {
+      document.querySelectorAll('input[name="activeSection"]').forEach(cb => cb.checked = checked);
+      updateSectionCountBadge();
+    }
+
+    function setEssentialSections() {
+      const coreKeys = ['role_identity', 'mission_objectives', 'user_background', 'core_principles', 'knowledge_coverage', 'strategic_roadmap', 'execution_methodology', 'tools_technologies', 'risk_management', 'kickoff_step'];
+      document.querySelectorAll('input[name="activeSection"]').forEach(cb => {
+        cb.checked = coreKeys.includes(cb.value);
+      });
+      updateSectionCountBadge();
+    }
+
+    function updateSectionCountBadge() {
+      const checked = document.querySelectorAll('input[name="activeSection"]:checked').length;
+      document.getElementById('activeSectionBadge').textContent = `${checked} / 17`;
+    }
+
+    function switchTab(tab) {
+      const tabRendered = document.getElementById('tabRendered');
+      const tabRaw = document.getElementById('tabRaw');
+      const renderedView = document.getElementById('renderedView');
+      const rawView = document.getElementById('rawView');
+
+      if (tab === 'rendered') {
+        tabRendered.className = "px-3 py-1.5 rounded-lg bg-brand-600 text-slate-950 font-semibold transition";
+        tabRaw.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition";
+        renderedView.classList.remove('hidden');
+        rawView.classList.add('hidden');
+      } else {
+        tabRaw.className = "px-3 py-1.5 rounded-lg bg-brand-600 text-slate-950 font-semibold transition";
+        tabRendered.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition";
+        rawView.classList.remove('hidden');
+        renderedView.classList.add('hidden');
+      }
+    }
+
+    async function generatePrompt() {
+      const topic = document.getElementById('topicInput').value.trim();
+      if (!topic) {
+        alert("Please enter a North Star Goal or topic for the prompt.");
+        document.getElementById('topicInput').focus();
+        return;
+      }
+
+      const activeSections = Array.from(document.querySelectorAll('input[name="activeSection"]:checked')).map(cb => cb.value);
+
+      const payload = {
+        topic: topic,
+        targetRole: document.getElementById('roleInput').value.trim(),
+        category: document.getElementById('categorySelect').value,
+        experienceLevel: document.getElementById('experienceSelect').value,
+        timeCommitment: document.getElementById('timeInput').value.trim(),
+        techStack: document.getElementById('techStackInput').value,
+        constraints: document.getElementById('constraintsInput').value.trim(),
+        targetModel: document.getElementById('targetModelSelect').value,
+        engine: document.getElementById('engineSelect').value,
+        activeSections: activeSections
+      };
+
+      const btn = document.getElementById('generateBtn');
+      const btnIcon = document.getElementById('btnIcon');
+      const btnText = document.getElementById('btnText');
+
+      btn.disabled = true;
+      btnIcon.innerHTML = `<svg class="animate-spin h-4 w-4 text-slate-950" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>`;
+      btnText.textContent = "Compiling Master Prompt...";
+
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (data.status === 'success') {
+          currentPromptData = data;
+          renderPromptOutput(data);
+        } else {
+          alert("Error: " + (data.error || "Failed to generate prompt"));
+        }
+      } catch (err) {
+        alert("Server error: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btnIcon.textContent = "🚀";
+        btnText.textContent = "Generate Ultimate Master Prompt";
+      }
+    }
+
+    function renderPromptOutput(data) {
+      const renderedView = document.getElementById('renderedView');
+      const rawTextarea = document.getElementById('rawTextarea');
+      
+      // Render markdown via marked
+      renderedView.innerHTML = marked.parse(data.generatedPrompt);
+      rawTextarea.value = data.generatedPrompt;
+
+      // Update stats
+      document.getElementById('statWords').textContent = `${data.metadata.wordCount} words`;
+      document.getElementById('statSections').textContent = `${data.metadata.sectionCount}/17 sections`;
+      document.getElementById('statEngine').textContent = data.metadata.engineUsed;
+
+      // Clarification box
+      const clarificationBox = document.getElementById('clarificationBox');
+      const clarificationText = document.getElementById('clarificationText');
+      if (data.clarifyingQuestion) {
+        clarificationText.textContent = data.clarifyingQuestion;
+        clarificationBox.classList.remove('hidden');
+      } else {
+        clarificationBox.classList.add('hidden');
+      }
+    }
+
+    function dismissClarification() {
+      document.getElementById('clarificationBox').classList.add('hidden');
+    }
+
+    async function copyPromptToClipboard() {
+      if (!currentPromptData || !currentPromptData.generatedPrompt) {
+        alert("No prompt generated yet!");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(currentPromptData.generatedPrompt);
+        const copyText = document.getElementById('copyText');
+        const copyIcon = document.getElementById('copyIcon');
+        copyText.textContent = "Copied to Clipboard!";
+        copyIcon.textContent = "✅";
+        setTimeout(() => {
+          copyText.textContent = "Copy Prompt";
+          copyIcon.textContent = "📋";
+        }, 2000);
+      } catch (e) {
+        alert("Failed to copy: " + e.message);
+      }
+    }
+
+    function downloadPrompt(format) {
+      if (!currentPromptData || !currentPromptData.generatedPrompt) {
+        alert("No prompt generated yet!");
+        return;
+      }
+      const safeTitle = (currentPromptData.title || "Ultimate_Master_Prompt").replace(/[^a-zA-Z0-9_-]/g, "_");
+      const filename = `${safeTitle}.${format}`;
+      const blob = new Blob([currentPromptData.generatedPrompt], { type: format === 'md' ? 'text/markdown' : 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Initialize on window load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPresets();
+      checkHealth();
+      updateSectionCountBadge();
+      // Apply QA automation preset on initial load for instant demonstration
+      setTimeout(() => applyPreset('qa_automation'), 400);
+    });
+  </script>
+</body>
+</html>
+

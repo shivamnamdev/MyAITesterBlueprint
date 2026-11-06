@@ -1,0 +1,26 @@
+{
+  "name": "job-tracking-board-assistant",
+  "version": "1.0.0",
+  "description": "Local Kanban Job Tracking Board Assistant with Ollama JD Extraction & Resume Fit Assessor",
+  "main": "server/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev:server": "node --watch server/server.js",
+    "dev:client": "vite",
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^6.0.3"
+  }
+}
+
