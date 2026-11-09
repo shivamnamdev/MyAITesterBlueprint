@@ -1,0 +1,46 @@
+{
+  "name": "testplan-ai-agent-jira",
+  "version": "1.0.0",
+  "description": "AI Agent for generating Test Plans and Test Cases from JIRA requirements using Gemini API",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "server": "node server/index.js",
+    "dev:server": "nodemon server/index.js",
+    "build": "vite build",
+    "dev:client": "vite",
+    "dev": "vite",
+    "verify": "node tools/verify_connections.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.6.0",
+    "@google/genai": "^2.29.1",
+    "@vitejs/plugin-react": "^6.3.0",
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "googleapis": "^140.0.1",
+    "lucide-react": "^1.70.0",
+    "mammoth": "^1.13.0",
+    "pdf-parse": "^2.4.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "uuid": "^11.1.1",
+    "vite": "^8.3.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "nodemon": "^3.1.4",
+    "tailwindcss": "^4.3.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "allowScripts": {
+    "@google/genai@2.32.0": true,
+    "protobufjs@7.6.6": true,
+    "fsevents@2.3.3": true
+  }
+}

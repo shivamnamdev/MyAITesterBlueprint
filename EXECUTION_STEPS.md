@@ -132,7 +132,7 @@ npm start
 # For development mode with hot reload:
 npm run dev
 ```
-* **Access URL**: `http://localhost:5070` (change with `PORT=xxxx`)
+* **Access URL**: `http://localhost:5095` (change with `PORT=xxxx`)
 
 ---
 
@@ -158,6 +158,67 @@ chmod +x start.sh
 .venv/bin/python app.py
 ```
 * **Access URL**: `http://localhost:5056` (change with `PORT=xxxx`)
+
+---
+
+## 📌 Project 7: Test Plan & Test Case AI Agent (`Project7-TestPlan_AIAgent_JIRA`)
+
+### Overview
+A B.L.A.S.T.-architected QA automation web application with an interactive React frontend that connects to JIRA via API tokens configured directly in the UI. Ingests JIRA project requirements, Epics, Stories, and Bugs by Ticket ID (e.g. `PROJ-101`), parses Atlassian Document Format (ADF) descriptions and Acceptance Criteria, and supports **uploading supplemental requirement documents (Microsoft Word DOCX, PDF, Markdown, TXT, JSON, YAML)**. Follows a **Two-Stage Human-in-the-Loop Workflow**: Stage 1 generates the strategic Test Plan only for review and approval; once approved, Stage 2 unlocks to generate detailed, deterministic step-by-step Test Cases using selected LLMs (Anthropic Claude 3.7 / 3.5 Sonnet, Claude 3 Opus, Claude 3.5 Haiku, local offline Ollama models, or Gemini) at temperature 0.2. Features live UI test suite filtering, multi-format exports (two-sheet Excel `.xlsx`, RFC 4180 `.csv`, Markdown `.md`, Google Docs export, `.json`), and optional JIRA issue write-back.
+
+### Prerequisites
+* **Node.js**: v18.0+
+* **JIRA Account**: Base URL, email, and Atlassian API Token
+* **LLM Options**:
+  * **Anthropic Claude**: API Key from Anthropic Console (`console.anthropic.com`) configured in the UI or `.env`
+  * **Ollama (Optional for local offline use)**: Running locally (`ollama serve`) with any model (e.g. `llama3.2`, `codellama`)
+  * **Google Gemini (Optional)**: `GEMINI_API_KEY` in `.env`
+
+### Execution Steps
+```bash
+# 1. Navigate to Project 7 directory
+cd Project7-TestPlan_AIAgent_JIRA
+
+# 2. Launch using one-click startup script (handles build & dependencies automatically)
+chmod +x start.sh
+./start.sh
+
+# Or start directly with npm:
+npm start
+
+# For development mode with client hot reload:
+npm run dev
+```
+* **Access URL**: `http://localhost:5080` (or `http://localhost:5174` in Vite dev mode)
+
+---
+
+## 📌 Project: Mindset Builder Agent (`Individual-Projects/Mindset-Builder-Agent`)
+
+### Overview
+A B.L.A.S.T.-architected cognitive coaching web application and conversational agent designed to instill the deep mental models, intuition, and aptitude of ANY field or subject (e.g. QA Engineering, DevOps & SRE, Product Management, Cybersecurity, AI Prompt Engineering, Healthcare, etc.). Built on the premise that while mechanical skills are increasingly automated by AI, mindset drives over 70% of elite performance. Features a Gemini/ChatGPT-inspired web portal with an interactive HTML5 canvas rendering flowing neural network nodes and action potentials, industry certification syllabus deconstruction (e.g. ISTQB, DORA, CISSP), a Tri-Tier Analogy Engine (Easy, Medium, and Hard/Philosophical analogies with 1-to-1 cognitive mapping), a 5-chapter interactive curriculum with real-world scenario drills, continuous Socratic mentoring, and one-click Markdown Mindset Dossier export.
+
+### Prerequisites
+* **Python**: v3.9+
+* **Dependencies**: Flask, Requests (included in `.venv`)
+* **LLM Options**:
+  * **Built-in Deterministic Engine**: 100% offline ready with pre-compiled cognitive models for major disciplines and algorithmic synthesis for arbitrary fields.
+  * **Google Gemini (Optional)**: Set `GEMINI_API_KEY` in `.env`.
+  * **Ollama (Optional for local offline inference)**: Set `OLLAMA_HOST` in `.env` (`http://localhost:11434`).
+
+### Execution Steps
+```bash
+# 1. Navigate to Mindset Builder Agent directory
+cd Individual-Projects/Mindset-Builder-Agent
+
+# 2. Launch using one-click startup script (handles virtual environment automatically)
+chmod +x start.sh
+./start.sh
+
+# Or start directly with Python:
+.venv/bin/python app.py
+```
+* **Access URL**: `http://localhost:5095` (change with `PORT=xxxx`)
 
 ---
 
