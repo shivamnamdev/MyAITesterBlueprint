@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MINDSET.AI — The Cognitive Mindset Builder Agent</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+  <link rel="stylesheet" href="/static/css/style.css?v=1.0.7" />
+</head>
+<body>
+  <!-- Neural Network Flowing Background Canvas -->
+  <canvas id="neural-canvas"></canvas>
+
+  <div class="app-container">
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="brand" onclick="resetToInitial()">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 0 0-7.8 16.2L12 22l7.8-3.8A10 10 0 0 0 12 2z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>MINDSET.AI</h1>
+          <span>Cognitive Reflex Induction</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div id="active-domain-badge" class="badge-tag pulse">Ready to Wire Mindset</div>
+        <button id="ask-mentor-toggle-btn" class="btn-icon" title="Ask Socratic Mentor" style="display: none;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Ask Mentor
+        </button>
+        <button id="export-btn" class="btn-icon" disabled title="Download Full Mindset Blueprint">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export Blueprint
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-workspace">
+      
+      <!-- View 1: Original Clean Chatbot Landing Experience -->
+      <section id="chatbot-landing-view" class="chat-viewport">
+        <div class="chat-scroll-area">
+          <div id="welcome-hero" class="welcome-hero">
+            <div class="welcome-badge">
+              <span>✦</span> B.L.A.S.T. Cognitive Pedagogy Architecture
+            </div>
+            <h2>Wire the Mindset of Any Field into Intuitive Muscle Memory</h2>
+            <p>
+              In an era where AI generates code in seconds, mechanical skills are easily replaced. 
+              <strong>Mindset constitutes over 70% of elite performance</strong>—it is the invisible radar for hidden risks, 
+              first-principles problem formulation, and high-stakes decision making.
+            </p>
+
+            <div class="hero-quote">
+              "Skills are instructions you follow. Mindset is how you see the world when the instructions don't exist."
+            </div>
+
+            <div class="starter-pills-label">SELECT A TARGET DOMAIN OR TYPE ANY FIELD BELOW</div>
+            <div class="starter-chips">
+              <button class="chip-btn" data-domain="I need QA mindset">
+                <span>🩺 QA Engineering & Testing</span>
+                <span class="chip-sub">ISTQB • Doctor Analogy</span>
+              </button>
+              <button class="chip-btn" data-domain="I need DevOps and SRE mindset">
+                <span>🏎️ DevOps & SRE</span>
+                <span class="chip-sub">DORA • F1 Pit / Grid</span>
+              </button>
+              <button class="chip-btn" data-domain="I need Product Manager mindset">
+                <span>🧭 Product Strategy</span>
+                <span class="chip-sub">Jobs-To-Be-Done • SVPG</span>
+              </button>
+              <button class="chip-btn" data-domain="I need Cybersecurity mindset">
+                <span>🛡️ Cybersecurity Defense</span>
+                <span class="chip-sub">CISSP • Zero Trust</span>
+              </button>
+              <button class="chip-btn" data-domain="I need Prompt Engineering mindset">
+                <span>✨ AI Prompt Engineering</span>
+                <span class="chip-sub">Cognitive Scaffolding</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Chat Input Dock at Bottom -->
+        <div class="input-dock">
+          <div id="input-status-hint" class="input-status-hint" style="display: none;">
+            <span class="status-pulse-dot"></span>
+            <span id="input-status-text">Deconstructing field intelligence...</span>
+          </div>
+          <div class="input-container">
+            <textarea
+              id="message-input"
+              class="input-field"
+              rows="1"
+              placeholder="Tell me any field (e.g. 'I need QA mindset', 'SRE Architect', 'Cardiologist', 'Game Designer')..."
+            ></textarea>
+            <button id="send-btn" class="btn-send" title="Send">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 2: Stage-Driven Dashboard (Activated after submitting field) -->
+      <section id="stage-dashboard-view" class="stage-dashboard-view" style="display: none;">
+        
+        <!-- Left Side: Interactive Dynamic Timeline with Stage Descriptions -->
+        <aside class="timeline-sidebar">
+          <div class="timeline-header">
+            <div class="timeline-title">Cognitive Timeline</div>
+            <div class="timeline-sub" id="timeline-domain-label">Domain Ingestion</div>
+          </div>
+
+          <div class="timeline-steps" id="timeline-steps-container">
+            <!-- Dynamically populated by app.js -->
+          </div>
+          
+          <div class="timeline-footer">
+            <div class="progress-bar-wrapper">
+              <div class="progress-text">
+                <span>Induction Progress</span>
+                <span id="timeline-progress-percent">25%</span>
+              </div>
+              <div class="progress-track">
+                <div id="timeline-progress-bar" class="progress-fill" style="width: 25%;"></div>
+              </div>
+            </div>
+            <button class="btn-icon" onclick="resetToInitial()" style="width: 100%; margin-top: 14px; justify-content: center; font-size: 0.78rem;">
+              ↺ Switch Field
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main Center: Stage-Wise Exclusive Content Viewport -->
+        <div class="stage-content-viewport" id="stage-content-viewport">
+          <!-- Dynamically replaces content per stage:
+               Stage 1: Base Mentality + 3 Analogies
+               Stage 2 (Ch 1..5): Storytelling Chapters with visual SVG scenes & scenario drills
+               Stage 3: Master Synthesis & Blueprint Export
+          -->
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Socratic Mentor Drawer / Dialog Modal -->
+    <div id="mentor-drawer" class="mentor-drawer">
+      <div class="mentor-drawer-header">
+        <div class="mentor-title">
+          <span class="sparkle-icon">✨</span>
+          <span>Socratic Mindset Mentor</span>
+        </div>
+        <button id="close-mentor-drawer-btn" class="btn-close-drawer">&times;</button>
+      </div>
+      <div id="mentor-chat-messages" class="mentor-chat-messages">
+        <div class="mentor-welcome-msg">
+          Ask any question about this stage, your mental models, or how to apply this thinking to your team.
+        </div>
+      </div>
+      <div class="mentor-input-dock">
+        <input
+          id="mentor-input-field"
+          type="text"
+          placeholder="Ask a question about this mindset stage..."
+        />
+        <button id="mentor-send-btn" class="btn-mentor-send">Send</button>
+      </div>
+    </div>
+
+    <!-- Backend Progress Notification Toast Banner (Top Right) -->
+    <div id="backend-notification-banner" class="backend-notification-banner" style="display: none;">
+      <div class="notification-header">
+        <span class="status-pulse-dot"></span>
+        <span class="notification-title">Neural Engine Active</span>
+        <span id="notification-time-badge" class="notification-badge">0.0s</span>
+      </div>
+      <div id="notification-status-msg" class="notification-msg">Processing request...</div>
+      <div class="notification-progress-track">
+        <div id="notification-progress-bar" class="notification-progress-fill" style="width: 15%;"></div>
+      </div>
+    </div>
+
+    <!-- Thinking / Loading Overlay with Dynamic Phase Telemetry -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+      <div class="loading-box">
+        <div class="synapse-spinner"></div>
+        <div id="loading-text" class="loading-text">Wiring Neural Mindset...</div>
+        <div class="loading-phase-steps" id="loading-phase-steps">
+          <div class="phase-step active" id="step-phase-1">
+            <span class="step-icon">⚡</span>
+            <span class="step-label">Ingesting Field & Certification Standards</span>
+          </div>
+          <div class="phase-step" id="step-phase-2">
+            <span class="step-icon">💎</span>
+            <span class="step-label">Deconstructing First Principles & Axioms</span>
+          </div>
+          <div class="phase-step" id="step-phase-3">
+            <span class="step-icon">🎯</span>
+            <span class="step-label">Synthesizing Tri-Tier Graded Analogies</span>
+          </div>
+          <div class="phase-step" id="step-phase-4">
+            <span class="step-icon">✦</span>
+            <span class="step-label">Assembling Stage 1 Dashboard</span>
+          </div>
+        </div>
+        <div class="loading-bar-wrap">
+          <div id="loading-linear-bar" class="loading-linear-bar" style="width: 25%;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/neural-canvas.js?v=1.0.7"></script>
+  <script src="/static/js/app.js?v=1.0.7"></script>
+</body>
+</html>

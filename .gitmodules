@@ -1,0 +1,3 @@
+[submodule "Individual-Projects/Mindset-Builder-Agent/agentic-awesome-skills"]
+	path = Individual-Projects/Mindset-Builder-Agent/agentic-awesome-skills
+	url = git@github.com:sickn33/agentic-awesome-skills.git
